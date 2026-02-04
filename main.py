@@ -32,4 +32,4 @@ async def on_ready():
     await bot.load_extension('cogs.quest')
     await bot.load_extension('cogs.notifier')
     
-bot.run('MTI4MTU4NzI0ODQyMDIyNTAyNQ.GD4Hf8.D4hClv4lcyoC2-x_k3g7_rzYv_C5fke75EXUhM')
+bot.run('BOT-TOKEN')
