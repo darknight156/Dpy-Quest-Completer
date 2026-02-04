@@ -216,18 +216,6 @@ in the Software without restriction...
 
 ---
 
-## 🗺️ Roadmap
-
-- [ ] Database encryption for tokens
-- [ ] Multi-language support
-- [ ] Advanced scheduling system
-- [ ] Quest history and statistics
-- [ ] Custom reward notifications
-- [ ] Web dashboard for management
-- [ ] Docker containerization
-
----
-
 <div align="center">
 
 **Made with ❤️ for the Discord community**
