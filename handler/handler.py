@@ -1,3 +1,7 @@
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+
 import asyncio
 import aiohttp
 import random
