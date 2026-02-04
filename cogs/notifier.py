@@ -1,3 +1,7 @@
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+
 import discord
 import sqlite3
 import asyncio
