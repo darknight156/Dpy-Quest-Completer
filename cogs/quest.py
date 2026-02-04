@@ -20,21 +20,21 @@ from handler.handler import (
     stop_quest_task,
 )
 
-class OrbsQuestSelect(discord.ui.Select):
+
+        
+class QuestSelect(discord.ui.Select):
     def __init__(self, quests, token):
         options = []
         self.q_map = {}
+        
+        ORB_EMOJI = "<:orbs:1468288598980821195>"
+        QUEST_EMOJI = "<:questbadge:1468554840152997902>"
 
         for q in quests[:25]:
             q_id = q["id"]
             config = q.get("config", {})
             messages = config.get("messages", {})
-
-            name = (
-                messages.get("quest_name")
-                or messages.get("questName")
-                or "Unknown Quest"
-            )
+            
 
             rewards_config = config.get("rewards_config", {})
             rewards = rewards_config.get("rewards", [])
@@ -47,83 +47,6 @@ class OrbsQuestSelect(discord.ui.Select):
                         has_orbs = True
                         break
 
-            if not has_orbs:
-                continue
-
-            task_config = (
-                config.get("task_config")
-                or config.get("taskConfigV2")
-                or config.get("taskConfig", {})
-            )
-
-            tasks = list(task_config.get("tasks", {}).keys())
-
-            self.q_map[q_id] = {
-                "name": name,
-                "config": config,
-                "full_quest": q,
-            }
-
-            task_desc = (
-                f"Tasks: {', '.join(tasks)[:100]}"
-                if tasks
-                else "No tasks"
-            )
-
-            options.append(
-                discord.SelectOption(
-                    label=name[:100],
-                    value=q_id,
-                    emoji="<:orbs:1468288598980821195>"
-                )
-            )
-
-        super().__init__(
-            placeholder="Select an ORBS quest to solve...",
-            options=options or [
-                discord.SelectOption(
-                    label="No Orbs quests found",
-                    value="none",
-                    default=True,
-                )
-            ],
-            row=1,
-            disabled=not options,
-        )
-
-        self.token = token
-
-    async def callback(self, interaction: discord.Interaction):
-        if self.values[0] == "none":
-            await interaction.response.send_message(
-                "❌ No Orbs quests available",
-                ephemeral=True,
-            )
-            return
-
-        await interaction.response.defer(ephemeral=True)
-
-        q_data = self.q_map[self.values[0]]
-
-        view = QuestControlView(
-            self.token,
-            self.values[0],
-            q_data["name"],
-            q_data["config"],
-            q_data["full_quest"],
-        )
-
-        await interaction.followup.send(view=view, ephemeral=False)
-        
-class QuestSelect(discord.ui.Select):
-    def __init__(self, quests, token):
-        options = []
-        self.q_map = {}
-
-        for q in quests[:25]:
-            q_id = q["id"]
-            config = q.get("config", {})
-            messages = config.get("messages", {})
 
             name = (
                 messages.get("quest_name")
@@ -155,6 +78,7 @@ class QuestSelect(discord.ui.Select):
                 discord.SelectOption(
                     label=name[:100],
                     value=q_id,
+                    emoji=ORB_EMOJI if has_orbs else QUEST_EMOJI
                 )
             )
 
@@ -583,7 +507,6 @@ class QuestCog(commands.Cog):
                             return await ctx.send(f"No quests found ({len(all_quests)} total)")
                         
                         view = discord.ui.View()
-                        view.add_item(OrbsQuestSelect(found_quests, token))
                         view.add_item(QuestSelect(found_quests, token))
                         await ctx.send(f"🎯 Found {len(found_quests)} quest(s):", view=view)
                         
