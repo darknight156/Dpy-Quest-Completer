@@ -1,14 +1,10 @@
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+# Made By DarkNighT (- mmiiiuu)
+
 import discord
 from discord.ext import commands
-from discord import ui
 import sqlite3
-import aiohttp
-import asyncio
-import base64
-import json
-import random
-from uuid import uuid4
-from datetime import datetime
 
 intents = discord.Intents.default()
 intents.message_content = True
